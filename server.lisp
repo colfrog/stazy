@@ -35,8 +35,11 @@
 (hunchentoot:define-easy-handler
     (image
      :uri (lambda (request)
-	    (string= (string (hunchentoot:request-uri request)) "/i")))
+	    (let ((uri (hunchentoot:request-uri request)))
+	      (string= (and (> (length uri) 3) (subseq uri 0 2)) "/i"))))
     ()
-  (setf (hunchentoot:content-type*) "text/html")
-  (cl-who:with-html-output-to-string (*standard-output*)
-    (:h1 "test")))
+  (setf (hunchentoot:content-type*) "image/png")
+  (let ((image-name (subseq (hunchentoot:request-uri hunchentoot:*request*) 3)))
+    (sqlite:execute-single
+     *db*
+     "select image from images where username = 'laurent' and id = ?" image-name)))
