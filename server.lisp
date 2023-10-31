@@ -2,6 +2,7 @@
 (ql:quickload :sqlite)
 (ql:quickload :cmark)
 (ql:quickload :cl-who)
+(ql:quickload :quri)
 
 (defvar *db-path* (or (last (uiop:command-line-arguments)) "/media/laurent/storage/tulip/db.sqlite"))
 (defvar *db* (sqlite:connect *db-path*))
@@ -39,7 +40,9 @@
 	      (string= (and (> (length uri) 3) (subseq uri 0 2)) "/i"))))
     ()
   (setf (hunchentoot:content-type*) "image/png")
-  (let ((image-name (subseq (hunchentoot:request-uri hunchentoot:*request*) 3)))
+  (let ((image-name
+	 (quri:url-decode
+	  (subseq (hunchentoot:request-uri hunchentoot:*request*) 3))))
     (sqlite:execute-single
      *db*
      "select image from images where username = 'laurent' and id = ?" image-name)))
