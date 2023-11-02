@@ -9,13 +9,46 @@
 
 (hunchentoot:start (make-instance 'hunchentoot:easy-acceptor :port 4242))
 
+(defmacro with-layout ((title) &body body)
+  `(cl-who:with-html-output-to-string (*standard-output* nil :prologue t)
+     (:html
+      (:head
+       (:title
+	(cl-who:str
+	 (if ,title
+	     (concatenate 'string "nilio - " ,title)
+	     "nilio"))))
+      (:body
+       (:header
+	(:center
+	 (:a :href "/" (:h1 "nilio"))))
+       (:nav
+	(let ((title-list
+		(sqlite:execute-to-list
+		 *db*
+		 "select title from posts where username = 'laurent'")))
+	  (dolist (item title-list)
+	    (cl-who:htm
+	     (:a :href (cl-who:str
+			(concatenate
+			 'string
+			 "/post?title="
+			 (quri:url-encode (car item))))
+	      (:h5 (cl-who:str (car item))))))))
+       (:main
+	,@body)
+       (:footer (:small "Created by Laurent Cimon"))))))
+      
+
 (hunchentoot:define-easy-handler (home-page :uri "/") ()
   (setf (hunchentoot:content-type*) "text/html")
   (let ((markdown
 	  (sqlite:execute-single
 	   *db*
 	   "select markdown from home where username = 'laurent'")))
-    (libcmark:markdown-to-html markdown (length markdown) 0)))
+    (with-layout (nil)
+      (cl-who:str
+       (libcmark:markdown-to-html markdown (length markdown) 0)))))
 
 (hunchentoot:define-easy-handler (post-page :uri "/post") (title)
   (setf (hunchentoot:content-type*) "text/html")
@@ -26,12 +59,13 @@
 	    title))
 	 (markdown (caar results))
 	 (submitted (cadar results)))
-    (cl-who:with-html-output-to-string (*standard-output*)
-      (:main (:h1 (cl-who:esc title))
-	     (:h4 (cl-who:esc submitted))
-	     (:article
-	      (cl-who:str
-	       (libcmark:markdown-to-html markdown (length markdown) 0)))))))
+    (when results
+      (with-layout (title)
+	(:h1 (cl-who:esc title))
+	       (:h4 (cl-who:esc submitted))
+	       (:article
+		(cl-who:str
+		 (libcmark:markdown-to-html markdown (length markdown) 0)))))))
 
 (hunchentoot:define-easy-handler
     (image
