@@ -62,10 +62,14 @@ footer small {
 
 @media screen and (max-width: 800px) {
     main {
-	margin: 0 0 0 200px;
+	margin: 0;
     }
 
     footer {
-	margin: 0 0 0 197px;
+	margin: 0 147px 0 0;
+    }
+
+    body {
+        grid-template-columns: 1fr 150px;
     }
 }
