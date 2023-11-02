@@ -24,12 +24,6 @@ main {
     margin: 0 200px;
 }
 
-@media screen and (max-width: 800px) {
-    main {
-	margin: 0 0 0 200px;
-    }
-}
-
 main img {
     display: block;
     width: auto;
@@ -64,4 +58,14 @@ footer {
 
 footer small {
     margin: 0 5%;
+}
+
+@media screen and (max-width: 800px) {
+    main {
+	margin: 0 0 0 200px;
+    }
+
+    footer {
+	margin: 0 0 0 197px;
+    }
 }
