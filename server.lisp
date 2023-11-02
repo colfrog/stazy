@@ -23,18 +23,19 @@
 	(:center
 	 (:a :href "/" (:h1 "nilio"))))
        (:nav
-	(let ((title-list
+	(let ((post-list
 		(sqlite:execute-to-list
 		 *db*
-		 "select title from posts where username = 'laurent'")))
-	  (dolist (item title-list)
+		 "select title, submitted from posts where username = 'laurent'")))
+	  (dolist (item post-list)
 	    (cl-who:htm
 	     (:a :href (cl-who:str
 			(concatenate
 			 'string
 			 "/post?title="
 			 (quri:url-encode (car item))))
-	      (:h5 (cl-who:str (car item))))))))
+		 (:h5 (cl-who:str (car item))))
+	     (:small (cl-who:str (cadr item)))))))
        (:main
 	,@body)
        (:footer (:small "Created by Laurent Cimon"))))))
