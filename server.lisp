@@ -42,13 +42,14 @@
 	  (dolist (item (reverse post-list))
 	    (cl-who:htm
 	     (:div :class "nav-entry"
-		   (:a :href (cl-who:str
-			      (concatenate
-			       'string
-			       "/post?title="
-			       (quri:url-encode (car item))))
-		       (:h5 (cl-who:str (car item))))
-		   (:small (cl-who:str (cadr item))))))))
+		   (:center
+		    (:a :href (cl-who:str
+			       (concatenate
+				'string
+				"/post?title="
+				(quri:url-encode (car item))))
+			(:h5 (cl-who:str (car item))))
+		    (:small (cl-who:str (cadr item)))))))))
        (:footer (:small "Created by Laurent Cimon"))))))
       
 
