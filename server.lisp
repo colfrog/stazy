@@ -7,7 +7,7 @@
 (defvar *db-path* (or (last (uiop:command-line-arguments)) "/home/laurent/tulip/db.sqlite"))
 (defvar *db* (sqlite:connect *db-path*))
 
-(hunchentoot:start (make-instance 'hunchentoot:easy-acceptor :port 4242))
+(hunchentoot:start (make-instance 'hunchentoot:easy-acceptor :port 4243))
 
 (push (hunchentoot:create-static-file-dispatcher-and-handler
        "/style.css" "public/style.css")
