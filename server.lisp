@@ -9,10 +9,20 @@
 
 (hunchentoot:start (make-instance 'hunchentoot:easy-acceptor :port 4242))
 
+(push (hunchentoot:create-static-file-dispatcher-and-handler
+       "/style.css" "public/style.css")
+      hunchentoot:*dispatch-table*)
+(push (hunchentoot:create-static-file-dispatcher-and-handler
+       "/favicon.ico" "public/favicon.ico")
+      hunchentoot:*dispatch-table*)
+
 (defmacro with-layout ((title) &body body)
   `(cl-who:with-html-output-to-string (*standard-output* nil :prologue t)
      (:html
       (:head
+       (:meta :name "viewport" :content "width=device-width,initial-scale=1")
+       (:link :rel "icon" :type "image/x-icon" :href "/favicon.ico")
+       (:link :rel "stylesheet" :href "/style.css")
        (:title
 	(cl-who:str
 	 (if ,title
@@ -22,6 +32,8 @@
        (:header
 	(:center
 	 (:a :href "/" (:h1 "nilio"))))
+       (:main
+	,@body)
        (:nav
 	(let ((post-list
 		(sqlite:execute-to-list
@@ -29,15 +41,14 @@
 		 "select title, submitted from posts where username = 'laurent'")))
 	  (dolist (item post-list)
 	    (cl-who:htm
-	     (:a :href (cl-who:str
-			(concatenate
-			 'string
-			 "/post?title="
-			 (quri:url-encode (car item))))
-		 (:h5 (cl-who:str (car item))))
-	     (:small (cl-who:str (cadr item)))))))
-       (:main
-	,@body)
+	     (:div :class "nav-entry"
+		   (:a :href (cl-who:str
+			      (concatenate
+			       'string
+			       "/post?title="
+			       (quri:url-encode (car item))))
+		       (:h5 (cl-who:str (car item))))
+		   (:small (cl-who:str (cadr item))))))))
        (:footer (:small "Created by Laurent Cimon"))))))
       
 
