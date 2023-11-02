@@ -24,6 +24,12 @@ main {
     margin: 0 200px;
 }
 
+@media screen and (max-width: 800px) {
+    main {
+	margin: 0 200px 0 0;
+    }
+}
+
 main img {
     display: block;
     width: auto;
