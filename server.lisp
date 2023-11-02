@@ -4,7 +4,7 @@
 (ql:quickload :cl-who)
 (ql:quickload :quri)
 
-(defvar *db-path* (or (last (uiop:command-line-arguments)) "/media/laurent/storage/tulip/db.sqlite"))
+(defvar *db-path* (or (last (uiop:command-line-arguments)) "/home/laurent/tulip/db.sqlite"))
 (defvar *db* (sqlite:connect *db-path*))
 
 (hunchentoot:start (make-instance 'hunchentoot:easy-acceptor :port 4242))
@@ -39,7 +39,7 @@
 		(sqlite:execute-to-list
 		 *db*
 		 "select title, submitted from posts where username = 'laurent'")))
-	  (dolist (item post-list)
+	  (dolist (item (reverse post-list))
 	    (cl-who:htm
 	     (:div :class "nav-entry"
 		   (:a :href (cl-who:str
