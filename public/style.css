@@ -38,7 +38,7 @@ nav {
     border-style: none none none solid;
 }
 
-nav ::-webkit-scrollbar {
+::-webkit-scrollbar {
     display: none;
 }
 
