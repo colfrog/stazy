@@ -34,8 +34,12 @@ main img {
 
 nav {
     grid-area: n;
-    overflow: scroll;
+    overflow-y: scroll;
     border-style: none none none solid;
+}
+
+nav ::-webkit-scrollbar {
+    display: none;
 }
 
 .nav-entry {
