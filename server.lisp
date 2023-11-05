@@ -59,27 +59,29 @@
 	  (sqlite:execute-single
 	   *db*
 	   "select markdown from home where username = 'laurent'")))
-    (with-layout (nil)
-      (:article
-       (cl-who:str
-	(libcmark:markdown-to-html markdown (length markdown) 0))))))
+    (when markdown
+      (with-layout (nil)
+	(:article
+	 (cl-who:str
+	  (libcmark:markdown-to-html markdown (length markdown) 0)))))))
 
 (hunchentoot:define-easy-handler (post-page :uri "/post") (title)
   (setf (hunchentoot:content-type*) "text/html")
-  (let* ((results
-	   (sqlite:execute-to-list
-	    *db*
-	    "select markdown, submitted from posts where username = 'laurent' and title = ?"
-	    title))
-	 (markdown (caar results))
-	 (submitted (cadar results)))
-    (when results
-      (with-layout (title)
-	(:h1 (cl-who:esc title))
-	       (:h4 (cl-who:esc submitted))
-	       (:article
-		(cl-who:str
-		 (libcmark:markdown-to-html markdown (length markdown) 0)))))))
+  (when title
+    (let* ((results
+	    (sqlite:execute-to-list
+	     *db*
+	     "select markdown, submitted from posts where username = 'laurent' and title = ?"
+	     title))
+	   (markdown (caar results))
+	   (submitted (cadar results)))
+      (when results
+	(with-layout (title)
+	  (:h1 (cl-who:esc title))
+	  (:h4 (cl-who:esc submitted))
+	  (:article
+	   (cl-who:str
+	    (libcmark:markdown-to-html markdown (length markdown) 0))))))))
 
 (hunchentoot:define-easy-handler
     (image
