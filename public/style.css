@@ -29,14 +29,14 @@ main p {
     align-items: center;
 }
 
-main > p img {
+main p img {
     display: inline-block;
     max-height: 50px;
     width: auto;
     margin: auto 4px;
 }
 
-main > h1 img {
+main h1 img {
     display: block;
     width: auto;
     height: auto;
