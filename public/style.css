@@ -24,11 +24,6 @@ main {
     margin: 0 200px;
 }
 
-main p {
-    display: flex;
-    align-items: center;
-}
-
 main p img {
     display: inline-block;
     max-height: 50px;
