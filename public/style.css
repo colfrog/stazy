@@ -42,6 +42,7 @@ main h1 img {
 nav {
     grid-area: n;
     overflow-y: scroll;
+    scrollbar-width: none;
     border-style: none none none solid;
 }
 
