@@ -47,6 +47,38 @@ main h1 img {
     object-fit: contain;
 }
 
+main h2 img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 70%;
+    object-fit: contain;
+}
+
+main h3 img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 50%;
+    object-fit: contain;
+}
+
+main h4 img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 40%;
+    object-fit: contain;
+}
+
+main h5 img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 30%;
+    object-fit: contain;
+}
+
 nav {
     grid-area: n;
     overflow-y: scroll;
