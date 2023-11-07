@@ -16,8 +16,15 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     border-style: none none solid none;
+}
+
+#header-text {
+    display: block;
+}
+
+#header-text * {
+    margin: 0;
 }
 
 main {

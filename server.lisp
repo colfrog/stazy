@@ -6,7 +6,7 @@
 
 (load "fortune.lisp")
 
-(defvar *db-path* (or (last (uiop:command-line-arguments)) "/home/laurent/src/tulip/db.sqlite"))
+(defvar *db-path* (or (last (uiop:command-line-arguments)) "C:/Users/colfr/src/tulip/db.sqlite"))
 (defvar *db* (sqlite:connect *db-path*))
 
 (hunchentoot:start (make-instance 'hunchentoot:easy-acceptor :port 4243))
@@ -33,13 +33,14 @@
       (:body
        (:header
 	(:center
-	 (:a :href "/" (:h1 "nilio"))
-	 (:h4 (cl-who:str
-	       (concatenate
-		'string
-		"&laquo; "
-		(get-fortune)
-		" &raquo;")))))
+	 (:div :id "header-text"
+	       (:a :href "/" (:h1 "nilio"))
+	       (:h4 (cl-who:str
+		     (concatenate
+		      'string
+		      "&laquo; "
+		      (get-fortune)
+		      " &raquo;"))))))
        (:main
 	,@body)
        (:nav
