@@ -4,7 +4,9 @@
 (ql:quickload :cl-who)
 (ql:quickload :quri)
 
-(defvar *db-path* (or (last (uiop:command-line-arguments)) "/home/laurent/tulip/db.sqlite"))
+(load "fortune.lisp")
+
+(defvar *db-path* (or (last (uiop:command-line-arguments)) "/home/laurent/src/tulip/db.sqlite"))
 (defvar *db* (sqlite:connect *db-path*))
 
 (hunchentoot:start (make-instance 'hunchentoot:easy-acceptor :port 4243))
@@ -31,7 +33,13 @@
       (:body
        (:header
 	(:center
-	 (:a :href "/" (:h1 "nilio"))))
+	 (:a :href "/" (:h1 "nilio"))
+	 (:h4 (cl-who:str
+	       (concatenate
+		'string
+		"&laquo; "
+		(get-fortune)
+		" &raquo;")))))
        (:main
 	,@body)
        (:nav

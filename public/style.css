@@ -16,6 +16,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     border-style: none none solid none;
 }
 
