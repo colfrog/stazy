@@ -1,9 +1,11 @@
 (defvar fortunes
   #("Fortune favours the brave"
     "No gods, No masters"
-    "Who do you think you are?"
     "Quelle chance!"
-    "A fake plastic watering can..."
+    "The One True God is &#9675;"
+    "Larry Wall was right"
+    "Dennis Ritchie is coding for God now"
+    "No man ever steps in the same river twice,<br />for it's not the same river and he's not the same man"
     "This page was made possible by Mark C. Lisp"
     "Sponsored by your local pizza place"
     "What's new pussycat?"
