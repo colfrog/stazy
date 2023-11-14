@@ -140,3 +140,15 @@ footer small {
         grid-template-columns: 1fr 150px;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #333;
+	color: white;
+	border-color: white;
+    }
+
+    body a {
+        color: white
+    }
+}
