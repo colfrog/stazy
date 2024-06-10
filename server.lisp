@@ -6,7 +6,7 @@
 
 (load "fortune.lisp")
 
-(defvar *db-path* (or (last (uiop:command-line-arguments)) "C:/Users/colfr/src/tulip/db.sqlite"))
+(defvar *db-path* (or (last (uiop:command-line-arguments)) "/home/laurent/tulip/db.sqlite"))
 (defvar *db* (sqlite:connect *db-path*))
 
 (hunchentoot:start (make-instance 'hunchentoot:easy-acceptor :port 4243))
@@ -23,6 +23,9 @@
      (:html
       (:head
        (:meta :name "viewport" :content "width=device-width,initial-scale=1")
+       (:link :href "https://mastodon.bsd.cafe/@clf" :rel "me")
+       (:link :href "https://mas.to/@clf" :rel "me")
+       (:link :href "https://bsd.network/@xi" :rel "me")
        (:link :rel "icon" :type "image/x-icon" :href "/favicon.ico")
        (:link :rel "stylesheet" :href "/style.css")
        (:title
