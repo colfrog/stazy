@@ -136,11 +136,11 @@ footer small {
 @media screen and (max-width: 800px) {
     body {
         display: flex;
-	flex-direction: column;
+        flex-direction: column;
     }
 
     main {
-	margin: 0;
+        margin: 0;
     }
 
     nav {
@@ -148,7 +148,7 @@ footer small {
     }
 
     footer {
-	margin: 0;
+        margin: 0;
     }
 }
 
