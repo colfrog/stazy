@@ -134,16 +134,21 @@ footer small {
 }
 
 @media screen and (max-width: 800px) {
+    body {
+        display: flex;
+	flex-direction: column;
+    }
+
     main {
 	margin: 0;
     }
 
-    footer {
-	margin: 0 147px 0 0;
+    nav {
+        border-style: solid none none none;
     }
 
-    body {
-        grid-template-columns: 1fr 150px;
+    footer {
+	margin: 0;
     }
 }
 
