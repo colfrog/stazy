@@ -50,7 +50,7 @@
 	(let ((post-list
 		(sqlite:execute-to-list
 		 *db*
-		 "select title, submitted from posts where username = 'laurent'")))
+		 "select title, date(submitted) from posts where username = 'laurent'")))
 	  (dolist (item (reverse post-list))
 	    (cl-who:htm
 	     (:div :class "nav-entry"
@@ -83,7 +83,7 @@
     (let* ((results
 	    (sqlite:execute-to-list
 	     *db*
-	     "select markdown, submitted from posts where username = 'laurent' and title = ?"
+	     "select markdown, submitted || ' (UTC)' from posts where username = 'laurent' and title = ?"
 	     title))
 	   (markdown (caar results))
 	   (submitted (cadar results)))
