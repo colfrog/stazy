@@ -110,6 +110,17 @@
      *db*
      "select image from images where username = ? and id = ?" *username* image-name)))
 
+(hunchentoot:define-easy-handler (admin-redirect :uri "/admin") ()
+  (hunchentoot:redirect "/admin/"))
+
+(hunchentoot:define-easy-handler (admin-home :uri "/admin/") ()
+  (with-layout ("Admin Home")
+    (:article
+     (:center
+      (:a :href "post" "Edit home")
+      (:br)
+      (:a :href "images" "Edit images")))))
+
 (hunchentoot:define-easy-handler (admin-new-post-page :uri "/admin/new-post") ()
   (setf (hunchentoot:content-type*) "text/html")
   (with-layout ("New Post")
@@ -203,4 +214,4 @@
     ((id :request-type :POST))
   (when id
     (sqlite:execute-non-query *db* "delete from images where username = ? and id = ?" *username* id)
-    (hunchentoot:redirect "/admin/images")))))
+    (hunchentoot:redirect "/admin/images")))
