@@ -51,7 +51,8 @@
 	(let ((post-list
 		(sqlite:execute-to-list
 		 *db*
-		 "select title, date(submitted) from posts where username = 'laurent'")))
+		 "select title, date(submitted) from posts where username = ?"
+		 *username*)))
 	  (dolist (item (reverse post-list))
 	    (cl-who:htm
 	     (:div :class "nav-entry"
