@@ -1,3 +1,5 @@
+(in-package :stazy)
+
 (defvar fortunes
   #("Fortune favours the brave"
     "Quelle chance!"
