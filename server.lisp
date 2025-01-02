@@ -3,9 +3,16 @@
 (defparameter *username* "laurent")
 (defvar *db-path* "db.sqlite")
 (defvar *db* (sqlite:connect *db-path*))
+(defvar *server* nil)
+(defvar *port* 4243)
 
 (defun start-stazy ()
-  (start (make-instance 'hunchentoot:easy-acceptor :port 4243)))
+  (when (null *server*)
+    (setf *server* (make-instance 'hunchentoot:easy-acceptor :port *port*)))
+  (start *server*))
+
+(defun stop-stazy ()
+  (stop *server*))
 
 (defun is-logged-in ()
   (session-value :username))
