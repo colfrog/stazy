@@ -5,11 +5,17 @@
 (defvar *db* (sqlite:connect *db-path*))
 (defvar *server* nil)
 (defvar *port* 4243)
+(defvar *acceptor* nil)
 
-(defun start-stazy ()
+(defun start-stazy (&key (join t))
   (when (null *server*)
     (setf *server* (make-instance 'hunchentoot:easy-acceptor :port *port*)))
-  (start *server*))
+  (setf *acceptor* (start *server*))
+  (when join
+    (sb-thread:join-thread
+      (find-if
+        (lambda (thread) (string= (sb-thread:thread-name thread) "hunchentoot-listener-*:4243"))
+        (sb-thread:list-all-threads)))))
 
 (defun stop-stazy ()
   (stop *server*))
@@ -29,9 +35,11 @@
      (:html
       (:head
        (:meta :name "viewport" :content "width=device-width,initial-scale=1")
+       (:link :href "https://fedi.nilio.ca/laurent" :rel "me")
        (:link :href "https://mastodon.bsd.cafe/@clf" :rel "me")
        (:link :href "https://mas.to/@clf" :rel "me")
        (:link :href "https://bsd.network/@xi" :rel "me")
+       (:link :href "https://mastodon.quebec/@laurent" :rel "me")
        (:link :rel "icon" :type "image/x-icon" :href "/favicon.ico")
        (:link :rel "stylesheet" :href "/style.css")
        (:title

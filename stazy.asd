@@ -8,4 +8,7 @@
 	       (:file "fortune")
 	       (:file "server")
 	       (:file "auth"))
-  :depends-on (#:hunchentoot #:cl-who #:sqlite #:libcmark #:md5))
+  :depends-on (#:hunchentoot #:cl-who #:sqlite #:libcmark #:md5)
+  :build-operation "program-op"
+  :build-pathname "stazy"
+  :entry-point "stazy:start-stazy")
