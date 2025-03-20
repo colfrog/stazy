@@ -2,22 +2,26 @@
 
 (defparameter *username* "laurent")
 (defvar *db-path* "db.sqlite")
-(defvar *db* (sqlite:connect *db-path*))
+(defvar *db* nil)
 (defvar *server* nil)
 (defvar *port* 4243)
 (defvar *acceptor* nil)
 
-(defun start-stazy (&key (join t))
+(defun start-stazy (&key (wait t))
+  (when (null *db*)
+    (setf *db* (sqlite:connect *db-path*)))
   (when (null *server*)
     (setf *server* (make-instance 'hunchentoot:easy-acceptor :port *port*)))
   (setf *acceptor* (start *server*))
-  (when join
+  (when wait
     (sb-thread:join-thread
       (find-if
         (lambda (thread) (string= (sb-thread:thread-name thread) "hunchentoot-listener-*:4243"))
         (sb-thread:list-all-threads)))))
 
 (defun stop-stazy ()
+  (sqlite:disconnect *db*)
+  (setf *db* nil)
   (stop *server*))
 
 (defun is-logged-in ()
