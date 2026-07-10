@@ -5,10 +5,18 @@ body {
 		   "m n" minmax(calc(100vh - 150px), 100%)
 		   "f f" 50px
 		   / 1fr 200px;
+
+    background-color: #340238;
+    color: #dcdccc;
+    font-family: sans-serif;
 }
 
 body a {
-    color: black;
+    color: white;
+}
+
+header, nav, footer {
+    border-color: #00ff7b;
 }
 
 header {
@@ -17,6 +25,11 @@ header {
     justify-content: center;
     align-items: center;
     border-style: none none solid none;
+}
+
+header a {
+    color: #00ff7b;
+    text-decoration: none;
 }
 
 #header-text {
@@ -30,6 +43,11 @@ header {
 main {
     grid-area: m;
     margin: 0 200px;
+    line-height: 1.4;
+}
+
+main p {
+    margin: 1.4em 16px;
 }
 
 main p img {
@@ -149,17 +167,5 @@ footer small {
 
     footer {
         margin: 0;
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: #333;
-	color: white;
-	border-color: white;
-    }
-
-    body a {
-        color: white
     }
 }
